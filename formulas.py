@@ -20,31 +20,32 @@ def lpopg(r=None, N=None, t=None, K=None):
     exit()
 
 # Chi-Square
-def chisq():
-    observed = []
-    expected = []
-    print("enter observed values: ")
-    while True:
+def chisq(observed=None, expected=None):
+    if observed == None and expected == None:
+        observed = []
+        expected = []
+        print("enter observed values: ")
         while True:
-            value = input()
-            if value != 's':
-                observed.append(Fraction(value))
-                continue
-            else:
+            while True:
+                value = input()
+                if value != 's':
+                    observed.append(Fraction(value))
+                    continue
+                else:
+                    break
+            print("enter expected values: ")
+            while True:
+                value = input()
+                if value != 's':
+                    expected.append(Fraction(value))
+                    continue
+                else:
+                    break
+            if len(observed) == len(expected):
                 break
-        print("enter expected values: ")
-        while True:
-            value = input()
-            if value != 's':
-                expected.append(Fraction(value))
+            else: 
+                print("re-enter data, respectively... ")
                 continue
-            else:
-                break
-        if len(observed) == len(expected):
-            break
-        else: 
-            print("re-enter data, respectively... ")
-            continue
     oediffsqd = []
     oblength = len(observed)
     for i in range(oblength):
@@ -54,9 +55,29 @@ def chisq():
     return chiSq
 
 # Simpson's Diversity Index
-def sdi():
-    
+def sdi(n=None, N=None):
+    if n == None and N == None:
+        n = []
+        print("enter species #s: ")
+        while True:
+            value = input()
+            if value != 's':
+                n.append(Fraction(value))
+                continue
+            else:
+                break
+        N = input("enter population #: \n")
+    if N == 'a':
+        N = sum(n)
+    numerator = []
+    nreps = len(n)
+    for i in range(nreps):
+        numerator.append(float(n[i] * (n[i]-1)))
+    numsum = sum(numerator)
+    sdi = (1 - math.pow((numsum / (Fraction(N) * (Fraction(N)-1))), 2))
+    return sdi
 
+# Initialize Calculator
 while True:
     action = str(input("which calculation? \n"))
 
@@ -83,12 +104,13 @@ while True:
 # Chi-Square
     elif action == 'chi':
         chiSq = chisq()
-        print(chiSq)
+        print("chi square value is: " + str(chiSq))
         continue
 
+# Simpson's Diversity Index
     elif action == 'sdi':
-        sdi = sdi()
-        print("the diversity of the population is:\n" + str(sdi))
+        simpdi = sdi()
+        print("the diversity of the population is:\n" + str(simpdi))
         continue
         
 # Repeat If Invalid
