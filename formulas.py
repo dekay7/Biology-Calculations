@@ -17,7 +17,17 @@ def epopg(r=None, N=None, t=None):
 
 # Population Growth (Logarithmic)
 def lpopg(r=None, N=None, t=None, K=None):
-    exit()
+    while True:    
+        if (r==None) and (N==None) and (t==None) and (K==None):
+            r = Fraction(input("enter the per capita growth rate: \n"))
+            N = Fraction(input("enter the initial population size: \n"))
+            t = Fraction(input("enter the difference in time (dt): \n"))
+            K = Fraction(input("enter the carrying capacity: \n"))
+            break
+        else: 
+            break
+    newpop = float((N * t * ((K-N)/N)) + N)
+    return newpop
 
 # Chi-Square
 def chisq(observed=None, expected=None):
@@ -79,7 +89,7 @@ def sdi(n=None, N=None):
 
 # Initialize Calculator
 while True:
-    action = str(input("which calculation? \n"))
+    action = str(input("which calculation? (popg, chi, sdi, exit)\n"))
 
 # On Exit
     if action == 'exit':
